@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span>Entry</span> {{vm.entry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.entry.title}}</span>
+        </dd>
+        <dt><span>Body</span></dt>
+        <dd>
+            <span>{{vm.entry.body}}</span>
+        </dd>
+        <dt><span>Posted On</span></dt>
+        <dd>
+            <span>{{vm.entry.postedOn | date:'medium'}}</span>
+        </dd>
+        <dt><span>Blog</span></dt>
+        <dd>
+            <a ui-sref="blog-detail({id:vm.entry.blog.id})">{{vm.entry.blog.name}}</a>
+        </dd>
+        <dt><span>Tag</span></dt>
+        <dd>
+            <span ng-repeat="tag in vm.entry.tags">
+                <a ui-sref="tag-detail({id: {{tag.id}}})">{{tag.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+</div>
