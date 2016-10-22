@@ -1,0 +1,27 @@
+{
+    "health": {
+        "title": "Status controle",
+        "refresh.button": "Ververs",
+        "stacktrace": "Stacktrace",
+        "details": {
+            "details": "Details",
+            "properties": "Eigenschappen",
+            "name": "Naam",
+            "value": "Waarde",
+            "error": "Fout"
+        },
+        "indicator": {
+            "diskSpace": "Schijfruimte",
+            "mail": "Email",
+            "db": "Databank"
+        },
+        "table": {
+            "service": "Dienstnaam",
+            "status": "Status"
+        },
+        "status": {
+            "UP": "UP",
+            "DOWN": "DOWN"
+        }
+    }
+}
