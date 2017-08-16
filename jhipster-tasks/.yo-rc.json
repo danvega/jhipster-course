@@ -3,7 +3,7 @@
     "promptValues": {
       "packageName": "com.therealdanvega"
     },
-    "jhipsterVersion": "4.5.6",
+    "jhipsterVersion": "4.6.2",
     "baseName": "tasks",
     "packageName": "com.therealdanvega",
     "packageFolder": "com/therealdanvega",
@@ -21,7 +21,7 @@
     "buildTool": "maven",
     "enableSocialSignIn": false,
     "jwtSecretKey": "c6549043650bb4a4b15f980b71d4742910fad04c",
-    "clientFramework": "angular2",
+    "clientFramework": "angularX",
     "useSass": false,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",

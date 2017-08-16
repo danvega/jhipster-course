@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Task } from './task.model';
 import { TaskPopupService } from './task-popup.service';
@@ -19,7 +19,6 @@ export class TaskDeleteDialogComponent {
     constructor(
         private taskService: TaskService,
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -36,7 +35,6 @@ export class TaskDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success(`A Task is deleted with identifier ${id}`, null, null);
     }
 }
 
@@ -46,7 +44,6 @@ export class TaskDeleteDialogComponent {
 })
 export class TaskDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -56,8 +53,8 @@ export class TaskDeletePopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.taskPopupService
-                .open(TaskDeleteDialogComponent, params['id']);
+            this.taskPopupService
+                .open(TaskDeleteDialogComponent as Component, params['id']);
         });
     }
 

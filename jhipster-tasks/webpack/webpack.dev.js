@@ -2,22 +2,16 @@ const webpack = require('webpack');
 const writeFilePlugin = require('write-file-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const execSync = require('child_process').execSync;
-const fs = require('fs');
+const WebpackNotifierPlugin = require('webpack-notifier');
 const path = require('path');
 
+const utils = require('./utils.js');
 const commonConfig = require('./webpack.common.js');
 
-const ddlPath = './target/www/vendor.json';
-const ENV = 'dev';
-
-if (!fs.existsSync(ddlPath)) {
-    execSync('webpack --config webpack/webpack.vendor.js');
-}
+const ENV = 'development';
 
 module.exports = webpackMerge(commonConfig({ env: ENV }), {
-    devtool: 'inline-source-map',
+    devtool: 'eval-source-map',
     devServer: {
         contentBase: './target/www',
         proxy: [{
@@ -33,18 +27,39 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             secure: false
         }]
     },
+    entry: {
+        polyfills: './src/main/webapp/app/polyfills',
+        global: './src/main/webapp/content/css/global.css',
+        main: './src/main/webapp/app/app.main'
+    },
     output: {
-        path: path.resolve('target/www'),
+        path: utils.root('target/www'),
         filename: 'app/[name].bundle.js',
         chunkFilename: 'app/[id].chunk.js'
     },
     module: {
         rules: [{
             test: /\.ts$/,
-            loaders: [
-                'tslint-loader'
-            ],
+            enforce: 'pre',
+            loaders: 'tslint-loader',
             exclude: ['node_modules', new RegExp('reflect-metadata\\' + path.sep + 'Reflect\\.ts')]
+        },
+        {
+            test: /\.ts$/,
+            loaders: [
+                'angular2-template-loader',
+                'awesome-typescript-loader'
+            ],
+            exclude: ['node_modules/generator-jhipster']
+        },
+        {
+            test: /\.css$/,
+            loaders: ['to-string-loader', 'css-loader'],
+            exclude: /(vendor\.css|global\.css)/
+        },
+        {
+            test: /(vendor\.css|global\.css)/,
+            loaders: ['style-loader', 'css-loader']
         }]
     },
     plugins: [
@@ -57,12 +72,15 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         }, {
             reload: false
         }),
-        new ExtractTextPlugin('styles.css'),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
         new writeFilePlugin(),
         new webpack.WatchIgnorePlugin([
-            path.resolve('./src/test'),
-        ])
+            utils.root('src/test'),
+        ]),
+        new WebpackNotifierPlugin({
+            title: 'JHipster',
+            contentImage: path.join(__dirname, 'logo-jhipster.png')
+        })
     ]
 });
