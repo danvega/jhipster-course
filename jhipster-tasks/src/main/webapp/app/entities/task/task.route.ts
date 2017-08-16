@@ -9,8 +9,6 @@ import { TaskDetailComponent } from './task-detail.component';
 import { TaskPopupComponent } from './task-dialog.component';
 import { TaskDeletePopupComponent } from './task-delete-dialog.component';
 
-import { Principal } from '../../shared';
-
 export const taskRoute: Routes = [
     {
         path: 'task',

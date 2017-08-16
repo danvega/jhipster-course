@@ -17,7 +17,6 @@ import { TaskService } from './task.service';
 export class TaskDialogComponent implements OnInit {
 
     task: Task;
-    authorities: any[];
     isSaving: boolean;
     dueDateDp: any;
 
@@ -31,7 +30,6 @@ export class TaskDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -42,24 +40,19 @@ export class TaskDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.task.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.taskService.update(this.task), false);
+                this.taskService.update(this.task));
         } else {
             this.subscribeToSaveResponse(
-                this.taskService.create(this.task), true);
+                this.taskService.create(this.task));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Task>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Task>) {
         result.subscribe((res: Task) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Task, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? `A new Task is created with identifier ${result.id}`
-            : `A Task is updated with identifier ${result.id}`,
-            null, null);
-
+    private onSaveSuccess(result: Task) {
         this.eventManager.broadcast({ name: 'taskListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -86,7 +79,6 @@ export class TaskDialogComponent implements OnInit {
 })
 export class TaskPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -97,11 +89,11 @@ export class TaskPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.taskPopupService
-                    .open(TaskDialogComponent, params['id']);
+                this.taskPopupService
+                    .open(TaskDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.taskPopupService
-                    .open(TaskDialogComponent);
+                this.taskPopupService
+                    .open(TaskDialogComponent as Component);
             }
         });
     }
