@@ -1,0 +1,15 @@
+{
+  "name": "BowerDemo",
+  "homepage": "https://github.com/cfaddict/jhipster-course",
+  "authors": [
+    "Dan Vega <danvega@gmail.com>"
+  ],
+  "description": "This is a demo of bower",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "angularjs#^1.5.8",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.6.3"
+  }
+}
