@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="hipster img-fluid img-rounded"></span>
+    </div>
+    <div class="col-md-9">
+      <h1>Welcome to JBlog!</h1>
+        <div *ngFor="let post of posts">
+            <h2>{{post.title}}</h2>
+            <p [innerHTML]="post.body"></p>
+            <small>Written by: {{post.author}}</small>
+            <hr/>
+        </div>
+    </div>
+</div>
