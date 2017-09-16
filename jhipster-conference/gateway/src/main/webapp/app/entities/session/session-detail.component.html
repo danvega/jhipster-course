@@ -1,0 +1,37 @@
+
+<div *ngIf="session">
+    <h2><span>Session</span> {{session.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{session.title}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{session.description}}</span>
+        </dd>
+        <dt><span>Start Date Time</span></dt>
+        <dd>
+            <span>{{session.startDateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>End Date Time</span></dt>
+        <dd>
+            <span>{{session.endDateTime | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'session/'+ session.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

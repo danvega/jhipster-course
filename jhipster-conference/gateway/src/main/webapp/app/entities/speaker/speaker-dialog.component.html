@@ -1,0 +1,86 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySpeakerLabel">Create or edit a Speaker</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!speaker.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="speaker.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                [(ngModel)]="speaker.firstName" required />
+            <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.firstName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                [(ngModel)]="speaker.lastName" required />
+            <div [hidden]="!(editForm.controls.lastName?.dirty && editForm.controls.lastName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="speaker.email" required />
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.email?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_twitter">Twitter</label>
+            <input type="text" class="form-control" name="twitter" id="field_twitter"
+                [(ngModel)]="speaker.twitter" required />
+            <div [hidden]="!(editForm.controls.twitter?.dirty && editForm.controls.twitter?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.twitter?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bio">Bio</label>
+            <input type="text" class="form-control" name="bio" id="field_bio"
+                [(ngModel)]="speaker.bio" required />
+            <div [hidden]="!(editForm.controls.bio?.dirty && editForm.controls.bio?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.bio?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_sessions">Sessions</label>
+            <select class="form-control" id="field_sessions" multiple name="sessions" [(ngModel)]="speaker.sessions">
+                <option [ngValue]="getSelected(speaker.sessions, sessionOption)" *ngFor="let sessionOption of sessions; trackBy: trackSessionById">{{sessionOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
