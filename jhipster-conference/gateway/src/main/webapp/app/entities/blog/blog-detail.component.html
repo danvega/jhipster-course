@@ -1,0 +1,33 @@
+
+<div *ngIf="blog">
+    <h2><span>Blog</span> {{blog.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{blog.title}}</span>
+        </dd>
+        <dt><span>Author</span></dt>
+        <dd>
+            <span>{{blog.author}}</span>
+        </dd>
+        <dt><span>Post</span></dt>
+        <dd>
+            <span>{{blog.post}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
